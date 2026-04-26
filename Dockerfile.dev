@@ -1,0 +1,12 @@
+FROM golang:1.26-alpine
+WORKDIR /app
+
+# 開発に便利なツールを追加
+RUN apk add --no-cache git bash
+
+RUN apk add --no-cache git bash mysql-client
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
