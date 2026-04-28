@@ -1,15 +1,24 @@
 {
-  "name": "Go + MySQL Dev",
-  "dockerComposeFile": "../docker-compose.yml",
+  "name": "go-gin-mariadb",
+  "dockerComposeFile": "docker-compose.yml",
   "service": "app",
-  "workspaceFolder": "/app",
-  "overrideCommand": true,
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
   "customizations": {
     "vscode": {
       "extensions": [
-        "golang.go"
-      ]
+        "golang.go",
+        "ms-azuretools.vscode-docker",
+        "cweijan.vscode-mysql-client2"
+      ],
+      "settings": {
+        "go.useLanguageServer": true,
+        "go.lintTool": "golangci-lint",
+        "[go]": {
+          "editor.formatOnSave": true
+        }
+      }
     }
   },
-  "remoteUser": "root"
+  "remoteUser": "vscode"
 }

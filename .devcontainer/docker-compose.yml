@@ -1,0 +1,35 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace:cached     # プロジェクト全体をバインドマウント
+    command: sleep infinity
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../.env
+    depends_on:
+      - db
+    networks:
+      - appnet
+
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - appnet
+
+volumes:
+  db-data:
+
+networks:
+  appnet:
